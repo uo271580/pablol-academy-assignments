@@ -47,7 +47,7 @@ public class Crawler {
             Matcher matcher = pattern.matcher(rawhtml.toString());
 
             breakpoint--;
-            System.out.println("(" + breakpoint + ") --> ");
+            System.out.println("(" + breakpoint + ") --> " + tempUrl);
             getURLs(matcher);
 
             if (breakpoint == 0) {
