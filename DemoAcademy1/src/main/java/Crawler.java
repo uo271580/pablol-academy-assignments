@@ -25,7 +25,7 @@ public class Crawler {
             String tempUrl = urlQueue.remove();
             visitedUrls.add(tempUrl);
 
-            String rawhtml = "";
+            StringBuilder rawhtml = new StringBuilder();
 
             try {
                 URL url = new URL(tempUrl);
@@ -33,7 +33,7 @@ public class Crawler {
                 String inputLine = in.readLine();
 
                 while (inputLine != null) {
-                    rawhtml += inputLine;
+                    rawhtml.append(inputLine);
                     inputLine = in.readLine();
                 }
                 in.close();
@@ -44,9 +44,10 @@ public class Crawler {
 
             String urlPattern = "(www|http:|https:)+[^\s]+[\\w]";
             Pattern pattern = Pattern.compile(urlPattern);
-            Matcher matcher = pattern.matcher(rawhtml);
+            Matcher matcher = pattern.matcher(rawhtml.toString());
 
             breakpoint--;
+            System.out.println("(" + breakpoint + ") --> ");
             getURLs(matcher);
 
             if (breakpoint == 0) {
@@ -60,8 +61,8 @@ public class Crawler {
             String actualUrl = matcher.group();
 
             if (!visitedUrls.contains(actualUrl)) {
+                System.out.println("(" + visitedUrls.size() + ") Website found with URL " + actualUrl);
                 visitedUrls.add(actualUrl);
-                System.out.println("Website found with URL " + actualUrl);
                 urlQueue.add(actualUrl);
             }
         }
