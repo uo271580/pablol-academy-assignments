@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController {
 
-    Calculator calculator = new Calculator();
+    Calculator calculator;
+
+    public CalculatorController(Calculator calculator) {
+        this.calculator = calculator;
+    }
 
     @GetMapping("/")
     public String index() {

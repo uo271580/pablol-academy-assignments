@@ -14,7 +14,7 @@ public class CalculatorTest {
 
     @BeforeAll
     public static void beforeAll() {
-        calculatorController = new CalculatorController();
+        calculatorController = new CalculatorController(new Calculator());
     }
 
 
