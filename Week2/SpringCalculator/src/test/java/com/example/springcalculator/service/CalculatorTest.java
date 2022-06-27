@@ -30,7 +30,7 @@ public class CalculatorTest {
 
     @Test
     public void givenIndex_whenMin_thenOperationIsShown() {
-        assertThat(calculatorController.substract(16, 6), containsString("is 10"));
+        assertThat(calculatorController.subtract(16, 6), containsString("is 10"));
     }
 
     @Test
