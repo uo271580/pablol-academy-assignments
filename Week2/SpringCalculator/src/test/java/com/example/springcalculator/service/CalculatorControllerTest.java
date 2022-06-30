@@ -3,20 +3,27 @@ package com.example.springcalculator.service;
 import com.example.springcalculator.controllers.CalculatorController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
+@ExtendWith(MockitoExtension.class)
 public class CalculatorControllerTest {
 
 
     private static CalculatorController calculatorController;
+    private static Calculator calculator;
 
     @BeforeAll
     public static void beforeAll() {
-        calculatorController = new CalculatorController(new Calculator());
+        calculator = mock(Calculator.class);
+        calculatorController = new CalculatorController(calculator);
     }
-
 
     @Test
     public void givenBrowser_whenAccessMainPage_thenInfoIsShown() {
@@ -25,21 +32,25 @@ public class CalculatorControllerTest {
 
     @Test
     public void givenIndex_whenSum_thenOperationIsShown() {
-        assertThat(calculatorController.sum(4, 6), containsString("is 10"));
+        given(calculator.add(anyInt(), anyInt())).willReturn(10);
+        assertThat(calculatorController.sum(anyInt(), anyInt()), containsString("is 10"));
     }
 
     @Test
     public void givenIndex_whenMin_thenOperationIsShown() {
-        assertThat(calculatorController.subtract(16, 6), containsString("is 10"));
+        given(calculator.minus(anyInt(), anyInt())).willReturn(10);
+        assertThat(calculatorController.subtract(anyInt(), anyInt()), containsString("is 10"));
     }
 
     @Test
     public void givenIndex_whenMul_thenOperationIsShown() {
-        assertThat(calculatorController.multiply(5, 2), containsString("is 10"));
+        given(calculator.multiply(anyInt(), anyInt())).willReturn(10);
+        assertThat(calculatorController.multiply(anyInt(), anyInt()), containsString("is 10"));
     }
 
     @Test
     public void givenIndex_whenDiv_thenOperationIsShown() {
-        assertThat(calculatorController.divide(40, 4), containsString("is 10"));
+        given(calculator.divide(anyInt(), anyInt())).willReturn(10);
+        assertThat(calculatorController.divide(anyInt(), anyInt()), containsString("is 10"));
     }
 }
