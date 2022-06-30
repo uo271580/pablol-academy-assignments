@@ -1,45 +1,36 @@
 package com.example.springcalculator.service;
 
-import com.example.springcalculator.controllers.CalculatorController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
 
-
-    private static CalculatorController calculatorController;
+    private static Calculator calculator;
 
     @BeforeAll
     public static void beforeAll() {
-        calculatorController = new CalculatorController(new Calculator());
-    }
-
-
-    @Test
-    public void givenBrowser_whenAccessMainPage_thenInfoIsShown() {
-        assertThat(calculatorController.index(), containsString("Welcome to my Calculator"));
+        calculator = new Calculator();
     }
 
     @Test
-    public void givenIndex_whenSum_thenOperationIsShown() {
-        assertThat(calculatorController.sum(4, 6), containsString("is 10"));
+    public void addTest(){
+        assertEquals(8, calculator.add(4, 4));
     }
 
     @Test
-    public void givenIndex_whenMin_thenOperationIsShown() {
-        assertThat(calculatorController.subtract(16, 6), containsString("is 10"));
+    public void minusTest(){
+        assertEquals(2, calculator.minus(4, 2));
     }
 
     @Test
-    public void givenIndex_whenMul_thenOperationIsShown() {
-        assertThat(calculatorController.multiply(5, 2), containsString("is 10"));
+    public void multiplyTest(){
+        assertEquals(10, calculator.multiply(2, 5));
     }
 
     @Test
-    public void givenIndex_whenDiv_thenOperationIsShown() {
-        assertThat(calculatorController.divide(40, 4), containsString("is 10"));
+    public void divideTest(){
+        assertEquals(2, calculator.divide(4, 2));
     }
 }
