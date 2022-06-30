@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController {
 
-    private final Calculator calculator;
     private static final Logger logger = LoggerFactory.getLogger(CalculatorController.class);
+    private final Calculator calculator;
 
     public CalculatorController(Calculator calculator) {
         logger.info("Creating CalculatorController");
@@ -46,6 +46,10 @@ public class CalculatorController {
     @GetMapping("/div")
     public String divide(@RequestParam int n1, @RequestParam int n2) {
         logger.info("Accessing div with " + n1 + " and " + n2);
-        return n1 + " divided by " + n2 + " is " + calculator.divide(n1, n2);
+        try {
+            return n1 + " divided by " + n2 + " is " + calculator.divide(n1, n2);
+        } catch (ArithmeticException e) {
+            return "Division by zero is not allowed";
+        }
     }
 }
